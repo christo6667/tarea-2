@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graficación</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" 
+    rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark bg-primary">
+  <div class="container-fluid">
+    <span class="navbar-brand">Graficación</span>
+  </div>
+</nav>
+
+<div class="card text-center">
+  <div class="card-header">
+    Plano cartesiano
+  </div>
+
+  <div id="grafica" class="p-3"></div>
+
+  <div class="card-body">
+    <p></p>
+  </div>
+</div>
+
+<script>
+function dibujarParabolaSVG() {
+  const width = 640;
+  const height = 480;
+  const paso = 40;
+
+  const contenedor = document.getElementById("grafica");
+
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("width", width);
+  svg.setAttribute("height", height);
+  svg.style.border = "1px solid black";
+
+  // cuadro
+  for (let x = 0; x <= width; x += paso) {
+    let linea = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    linea.setAttribute("x1", x);
+    linea.setAttribute("y1", 0);
+    linea.setAttribute("x2", x);
+    linea.setAttribute("y2", height);
+    linea.setAttribute("stroke", "#ddd");
+    svg.appendChild(linea);
+  }
+
+  for (let y = 0; y <= height; y += paso) {
+    let linea = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    linea.setAttribute("x1", 0);
+    linea.setAttribute("y1", y);
+    linea.setAttribute("x2", width);
+    linea.setAttribute("y2", y);
+    linea.setAttribute("stroke", "#ddd");
+    svg.appendChild(linea);
+  }
+
+  //centro
+  const centroX = width / 2;
+  const centroY = height / 2;
+
+  const lineaHorizontal = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  lineaHorizontal.setAttribute("x1", 0);
+  lineaHorizontal.setAttribute("y1", centroY);
+  lineaHorizontal.setAttribute("x2", width);
+  lineaHorizontal.setAttribute("y2", centroY);
+  lineaHorizontal.setAttribute("stroke", "black");
+  lineaHorizontal.setAttribute("stroke-width", "2");
+
+  const lineaVertical = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  lineaVertical.setAttribute("x1", centroX);
+  lineaVertical.setAttribute("y1", 0);
+  lineaVertical.setAttribute("x2", centroX);
+  lineaVertical.setAttribute("y2", height);
+  lineaVertical.setAttribute("stroke", "black");
+  lineaVertical.setAttribute("stroke-width", "2");
+
+  svg.appendChild(lineaHorizontal);
+  svg.appendChild(lineaVertical);
+
+  //parabola
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+  let d = "";
+  let a = 0.01;
+
+  for (let x = -width / 2; x < width / 2; x++) {
+    let y = a * x * x;
+
+    let svgX = x + centroX;
+    let svgY = centroY - y;
+
+    if (x === -width / 2) {
+      d += `M ${svgX} ${svgY}`;
+    } else {
+      d += ` L ${svgX} ${svgY}`;
+    }
+  }
+
+  path.setAttribute("d", d);
+  path.setAttribute("stroke", "blue");
+  path.setAttribute("fill", "none");
+  path.setAttribute("stroke-width", "2");
+
+  svg.appendChild(path);
+
+  contenedor.appendChild(svg);
+}
+
+// Ejecutar
+dibujarParabolaSVG();
+</script>
+
+</body>
+</html>
