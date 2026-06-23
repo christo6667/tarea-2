@@ -1,0 +1,28 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+
+    "target": "es2021",
+    "module": "Node16",
+
+    "outDir": "./dist/src",
+    "rootDir": "./src",
+
+    "strictNullChecks": false,
+
+    "moduleResolution": "node16",
+    "traceResolution": false,
+    "esModuleInterop": true,
+
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+
+  "exclude": [
+    "node_modules"
+  ],
+
+  "include": [
+    "src/**/*.ts"
+  ]
+}
